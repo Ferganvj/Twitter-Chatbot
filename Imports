@@ -1,0 +1,14 @@
+#importing and loading the data files
+import numpy as np
+import tensorflow as tf
+!pip install tflearn
+import tflearn
+import random
+import json
+import pickle
+import warnings
+warnings.filterwarnings("ignore")
+import nltk
+nltk.download('punkt')
+from nltk.stem.lancaster import LancasterStemmer
+stemmer = LancasterStemmer()
