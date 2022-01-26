@@ -1,0 +1,51 @@
+def clean_up_sentence(sentence):
+    #It Tokenize or Break it into the constituents parts of Sentense.
+    sentence_words = nltk.word_tokenize(sentence)
+    #Stemming means to find the root of the word.
+    sentence_words = [stemmer.stem(word.lower()) for word in sentence_words]
+    return sentence_words
+
+#Return the Array of Bag of Words: True or False and 0 or 1 for each word of bag that exists in the Sentence
+def bow(sentence, words, show_details=False):
+    sentence_words = clean_up_sentence(sentence)
+    bag = [0]*len(words)
+    for s in sentence_words:
+        for i,w in enumerate(words):
+            if w == s:
+                bag[i] = 1
+                if show_details:
+                    print ("found in bag: %s" % w)
+    return(np.array(bag))
+
+ERROR_THRESHOLD = 0.25
+
+def classify(sentence):
+    #Prediction or To Get the Posibility or Probability from the Model
+    results = model.predict([bow(sentence, words)])[0]
+    #Exclude those results which are Below Threshold
+    results = [[i,r] for i,r in enumerate(results) if r>ERROR_THRESHOLD]
+    #Sorting is done because higher confident answer comes first.
+    results.sort(key=lambda x: x[1], reverse=True)
+    return_list = []
+    for r in results:
+        return_list.append((classes[r[0]], r[1])) #Tuppl -> Intent and Probability
+    return return_list
+
+def response(sentence, userID='123', show_details=False):
+    results = classify(sentence)
+    #That means if classification is done then find the matching tag.
+    if results:
+        #Long Loop to get the result
+        while results:
+            for i in intents['intents']:
+                # Tag Finding
+                if i['tag'] == results[0][0]:
+                    #Random Response from high order of probabilities
+                    return print(random.choice(i['responses']))
+
+            results.pop(0)
+            
+ while True:
+    input_data = input("You: ")
+    answer = response(input_data)
+    answer
