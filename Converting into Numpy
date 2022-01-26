@@ -1,0 +1,10 @@
+print("Cycling randomly and converting into Numpy Array for faster processing.")
+random.shuffle(training)
+training = np.array(training)
+
+print("Creating training and testing Lists.")
+train_x = list(training[:,0])
+train_y = list(training[:,1])
+print("Building Neural Network for ChattyBot to be contextual.")
+print("Resetting graph data.")
+#tf.reset_default_graph()
