@@ -1,0 +1,10 @@
+print("Stemming, Lowering and Removing Duplicates.")
+words = [stemmer.stem(w.lower()) for w in words if w not in ignore_words]
+words = sorted(list(set(words)))
+
+# remove duplicates
+classes = sorted(list(set(classes)))
+
+print (len(documents), "documents")
+print (len(classes), "classes", classes)
+print (len(words), "unique stemmed words", words)
