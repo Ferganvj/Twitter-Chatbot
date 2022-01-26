@@ -1,0 +1,23 @@
+print("Creating the Data for our Model.")
+training = []
+output = []
+print("Creating an List (Empty) for Output.")
+output_empty = [0] * len(classes)
+
+print("Creating Traning Set, Bag of Words for our Model,")
+for doc in documents:
+    #initializing our bag of words
+    bag = []
+    #listing of tokenized words for the pattern
+    pattern_words = doc[0]
+    #stem each word
+    pattern_words = [stemmer.stem(word.lower()) for word in pattern_words]
+    #creating our bag of words array
+    for w in words:
+        bag.append(1) if w in pattern_words else bag.append(0)
+
+    #output is a '0' for each tag and '1' for current tag
+    output_row = list(output_empty)
+    output_row[classes.index(doc[1])] = 1
+
+    training.append([bag, output_row])
